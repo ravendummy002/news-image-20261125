@@ -248,77 +248,45 @@ tri(RX + 4, RY + 112, RX + 24, RY + 112, RX + 14, RY + 158, [255, 150, 40]); // 
 tri(RX + 8, RY + 112, RX + 20, RY + 112, RX + 14, RY + 142, [255, 220, 80]);
 drawText(AX + 14, AY + AH - 22, "SHENZHOU-24 - TIANGONG", 2, WHITE);
 
-// ---- 2x2 panel grid ----
-function panel(x: number, y: number, w: number, h: number, kicker: string, head: string[], body: string, artW = 0): void {
+// ---- 3x2 panel grid: the day's other stories (full-day 25 Nov research) ----
+function panel(x: number, y: number, w: number, h: number, kicker: string, head: string[], body: string): void {
   rect(x, y, w, h, WHITE);
   rect(x, y, w, 2, INK); rect(x, y + h - 2, w, 2, INK);
   rect(x, y, 2, h, INK); rect(x + w - 2, y, 2, h, INK);
-  drawText(x + 16, y + 14, kicker, 2, RED);
-  let yy = y + 40;
+  drawText(x + 16, y + 12, kicker, 2, RED);
+  let yy = y + 34;
   for (const ln of head) { drawText(x + 16, yy, ln, 3, INK); yy += 26; }
-  paragraph(x + 16, yy + 4, body, w - 32 - artW, 2, INK, 18);
+  hline(x + 16, yy + 2, 56, RED, 2);
+  paragraph(x + 16, yy + 10, body, w - 32, 2, INK, 17);
 }
 
-// Panel 1: markets sell-off (with falling bar chart)
-panel(30, 500, 472, 176, "MARKETS - ASIA", ["TECH SELL-OFF", "HITS ASIA"], "Nikkei fell 2.76% as chip stocks slid after Nvidia dropped about 6%.", 140);
-{
-  const bx = 30 + 472 - 128, by = 500 + 56;
-  const heights = [66, 52, 40, 26, 14];
-  for (let i = 0; i < 5; i++) rect(bx + i * 24, by + 78 - heights[i], 16, heights[i], i < 2 ? RED : BLUE);
-  hline(bx - 6, by + 78, 128, INK, 2);
-  drawText(bx - 4, by + 86, "-2.76%", 2, RED);
-}
-// Panel 2: Cartagena hostage standoff
-panel(522, 500, 472, 176, "COLOMBIA", ["HOSTAGE STANDOFF", "IN CARTAGENA"], "Armed men held about 20 hostages in a supermarket in Cartagena, Colombia.", 140);
-{
-  const bx = 522 + 472 - 116, by = 500 + 60;
-  rect(bx, by, 96, 76, [232, 222, 200]);
-  rect(bx + 8, by + 14, 80, 10, INK);
-  rect(bx + 36, by + 44, 24, 32, RED);
-  drawText(bx + 22, by + 84, "MARKET", 2, INK);
-  disc(bx + 88, by - 8, 12, RED);
-  drawText(bx + 84, by - 15, "!", 2, WHITE);
-}
-// Panel 3: Senegal AFCON title
-panel(30, 692, 472, 176, "FOOTBALL - AFRICA", ["SENEGAL REGAIN", "AFCON TITLE"], "Senegal were reinstated as Africa Cup of Nations champions after a CAS ruling.", 140);
-{
-  const cx = 30 + 472 - 74, cy = 692 + 74;
-  // trophy cup
-  rect(cx - 26, cy - 26, 52, 34, GOLD);
-  rect(cx - 34, cy - 26, 8, 22, GOLD);
-  rect(cx + 26, cy - 26, 8, 22, GOLD);
-  rect(cx - 6, cy + 8, 12, 14, GOLD);
-  rect(cx - 18, cy + 22, 36, 6, GOLD);
-  disc(cx, cy - 32, 7, GOLD);
-}
-// Panel 4: Indonesia mine rescue
-panel(522, 692, 472, 176, "INDONESIA", ["MINERS TRAPPED", "100 M DEEP"], "Rescuers search for possibly dozens of miners trapped 100 metres deep since 23 November.", 140);
-{
-  const bx = 522 + 472 - 118, by = 692 + 56;
-  // mine shaft
-  rect(bx, by, 92, 84, [58, 48, 38]);
-  rect(bx + 10, by + 10, 72, 64, INK);
-  for (let i = 0; i < 4; i++) hline(bx + 10, by + 20 + i * 16, 72, [120, 100, 80], 3);
-  // helmet
-  disc(bx + 46, by + 88, 24, [240, 190, 30]);
-  rect(bx + 16, by + 86, 60, 8, [240, 190, 30]);
-}
+// Row 1
+panel(30, 500, 308, 164, "COLOMBIA", ["HOSTAGES FREED", "IN CARTAGENA"], "All hostages freed as forces stormed a Cartagena supermarket; one captor killed.");
+panel(358, 500, 308, 164, "INDONESIA", ["MINERS TRAPPED", "100 M DEEP"], "Dozens trapped in a flooded West Java gold mine; 26-29 unaccounted for, 100 m deep.");
+panel(686, 500, 308, 164, "BANGLADESH", ["WAGE UP 36%", "TO 17,000 TAKA"], "Garment wage up 36% to 17,000 taka after weeks of protests; workers asked 30,000.");
+// Row 2
+panel(30, 676, 308, 164, "UKRAINE", ["115BN NEEDED", "FOR 2027"], "Zelenskyy: Ukraine needs 115bn euros in 2027. Sea drones sank corvette Merkury.");
+panel(358, 676, 308, 164, "HORMUZ", ["MINES CLAIM", "IN THE STRAIT"], "IRGC claims tankers hit mines in Hormuz Strait; Trump warns of a 'very traumatic' outcome.");
+panel(686, 676, 308, 164, "TECH", ["HUAWEI GUILTY", "CIA BREACHED"], "Brooklyn jury convicts Huawei on sanctions charges; hackers breached a CIA system.");
 
-// ---- Bottom strip: four small items ----
-hline(30, 884, 964, INK, 2);
+// ---- Bottom strip: six more stories, two rows of three ----
+hline(30, 856, 964, INK, 2);
 const strip: [string, string][] = [
-  ["QATAR", "Qatar urges a return to US-Iran talks."],
-  ["SOLOMON ISLANDS", "Solomon Islands and Australia sign a security treaty."],
-  ["ABREGO GARCIA", "Kilmar Abrego Garcia leaves the US for Spain."],
-  ["XIAMEN AIRLINES", "Xiamen Airlines orders 50 Boeing 737-8 jets."],
+  ["NORTH KOREA", "Swiss office shut; head expelled in 48 hours."],
+  ["UNITED KINGDOM", "MI5 warns Ukraine backers of Russian sabotage."],
+  ["YEMEN / SAUDI", "Coalition hits Hodeidah; drone hits Riyadh."],
+  ["GAZA", "Strikes kill 7, incl. a Hamas security chief."],
+  ["CHINA", "Shanghai chief Chen Jining investigated."],
+  ["PACIFIC", "Australia-Solomon Islands security treaty signed."],
 ];
-for (let i = 0; i < 4; i++) {
-  const sx = 30 + i * 246;
-  drawText(sx, 898, strip[i][0], 2, RED);
-  paragraph(sx, 920, strip[i][1], 228, 2, INK, 17);
+for (let i = 0; i < 6; i++) {
+  const sx = 30 + (i % 3) * 328;
+  const sy = 866 + Math.floor(i / 3) * 62;
+  drawText(sx, sy, strip[i][0], 2, RED);
+  paragraph(sx, sy + 20, strip[i][1], 308, 2, INK, 17);
 }
-hline(30, 986, 964, INK, 2);
-drawTextCenter(512, 996, "WORLD NEWS IN ONE DAY - 25 NOVEMBER 2026", 2, GREY);
+hline(30, 992, 964, INK, 2);
+drawTextCenter(512, 1002, "WORLD NEWS IN ONE DAY - 25 NOVEMBER 2026", 2, GREY);
 
 // ------------------------------------------------------------------- PNG ----
 const crcTable = new Uint32Array(256);
